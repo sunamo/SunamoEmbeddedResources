@@ -16,6 +16,9 @@
   <ItemGroup>
     <None Include="readme.md" Pack="True" PackagePath="." />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_sunamo\SunamoFileSystem\" />
+  </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>$(DefineConstants);SunamoEmbeddedResources;SunamoEmbeddedResources.csproj</DefineConstants>
   </PropertyGroup>
