@@ -1,4 +1,3 @@
-
 namespace SunamoEmbeddedResources._sunamo.SunamoValues;
 
 /// <summary>
