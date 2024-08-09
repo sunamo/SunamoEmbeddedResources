@@ -1,9 +1,8 @@
 namespace SunamoEmbeddedResources;
 
 /// <summary>
-///
-/// Require assembly and default namespace.
-/// Content is referred like with ResourcesH - with fs path
+///     Require assembly and default namespace.
+///     Content is referred like with ResourcesH - with fs path
 /// </summary>
 public class EmbeddedResourcesH //: IResourceHelper
 {
@@ -13,18 +12,21 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
      */
 
     /// <summary>
-    /// For entry assembly
+    ///     For entry assembly
     /// </summary>
     public static EmbeddedResourcesH ci = null;
 
+    protected string _defaultNamespace;
+
+    protected Assembly _entryAssembly;
+
     protected EmbeddedResourcesH()
     {
-
     }
 
     /// <summary>
-    /// public to use in assembly like SunamoNTextCat
-    /// A2 is name of project, therefore don't insert typeResourcesSunamo.Namespace
+    ///     public to use in assembly like SunamoNTextCat
+    ///     A2 is name of project, therefore don't insert typeResourcesSunamo.Namespace
     /// </summary>
     /// <param name="_entryAssembly"></param>
     public EmbeddedResourcesH(Assembly _entryAssembly, string defaultNamespace)
@@ -33,30 +35,25 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
         _defaultNamespace = defaultNamespace;
     }
 
-    protected Assembly _entryAssembly = null;
-    protected string _defaultNamespace;
-
     protected Assembly entryAssembly
     {
         get
         {
-            if (_entryAssembly == null)
-            {
-                _entryAssembly = Assembly.GetEntryAssembly();
-            }
+            if (_entryAssembly == null) _entryAssembly = Assembly.GetEntryAssembly();
             return _entryAssembly;
         }
     }
 
     public string GetResourceName(string name)
     {
-        name = string.Join(".", _defaultNamespace, name.TrimStart(AllChars.slash).Replace(AllStrings.slash, AllStrings.dot));
+        name = string.Join(".", _defaultNamespace,
+            name.TrimStart(AllChars.slash).Replace(AllStrings.slash, AllStrings.dot));
         return name;
     }
 
     /// <summary>
-    /// If it's file, return its content
-    /// Its for getting string from file, never from resx or another in code variable
+    ///     If it's file, return its content
+    ///     Its for getting string from file, never from resx or another in code variable
     /// </summary>
     /// <param name="name"></param>
     public string GetString(string name)
@@ -67,7 +64,7 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     }
 
     /// <summary>
-    /// Resources/tidy_config.txt (no assembly)
+    ///     Resources/tidy_config.txt (no assembly)
     /// </summary>
     /// <param name="name"></param>
     public Stream GetStream(string name)
