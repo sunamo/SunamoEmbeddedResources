@@ -4,7 +4,7 @@ global using System.Collections;
 global using System.Collections.Generic;
 global using System;
 global using System.Reflection;
-global using SunamoEmbeddedResources._sunamo.SunamoValues;
+global using SunamoEmbeddedResources;
 global using SunamoEmbeddedResources._sunamo.SunamoExceptions;
 global using System.Diagnostics;
 global using SunamoEmbeddedResources._sunamo;
