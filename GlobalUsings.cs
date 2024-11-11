@@ -9,3 +9,4 @@ global using System.Diagnostics;
 global using SunamoEmbeddedResources._sunamo;
 global using System.Net;
 global using System.Diagnostics.CodeAnalysis;
+global using SunamoEmbeddedResources;
