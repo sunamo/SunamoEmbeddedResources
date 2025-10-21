@@ -1,3 +1,6 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 namespace SunamoEmbeddedResources;
 
 /// <summary>
@@ -58,9 +61,9 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <param name="name"></param>
     public string GetString(string name)
     {
-        var s = GetStream(name);
+        var text = GetStream(name);
 
-        return Encoding.UTF8.GetString(FS.StreamToArrayBytes(s));
+        return Encoding.UTF8.GetString(FS.StreamToArrayBytes(text));
     }
 
     /// <summary>
@@ -69,8 +72,8 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <param name="name"></param>
     public Stream GetStream(string name)
     {
-        var s = GetResourceName(name);
-        var vr = entryAssembly.GetManifestResourceStream(s);
+        var text = GetResourceName(name);
+        var vr = entryAssembly.GetManifestResourceStream(text);
         return vr;
     }
 }
