@@ -34,10 +34,10 @@ internal class FS
                     int nextByte = stream.ReadByte();
                     if (nextByte != -1)
                     {
-                        byte[] temp = new byte[readBuffer.Length * 2];
-                        Buffer.BlockCopy(readBuffer, 0, temp, 0, readBuffer.Length);
-                        Buffer.SetByte(temp, totalBytesRead, (byte)nextByte);
-                        readBuffer = temp;
+                        byte[] expandedBuffer = new byte[readBuffer.Length * 2];
+                        Buffer.BlockCopy(readBuffer, 0, expandedBuffer, 0, readBuffer.Length);
+                        Buffer.SetByte(expandedBuffer, totalBytesRead, (byte)nextByte);
+                        readBuffer = expandedBuffer;
                         totalBytesRead++;
                     }
                 }

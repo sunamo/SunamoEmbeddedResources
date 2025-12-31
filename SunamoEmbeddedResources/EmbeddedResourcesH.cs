@@ -14,11 +14,11 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <summary>
     ///     For entry assembly
     /// </summary>
-    public static EmbeddedResourcesH ci = null;
+    public static EmbeddedResourcesH Instance = null;
 
-    protected string _defaultNamespace;
+    protected string DefaultNamespace { get; set; }
 
-    protected Assembly _entryAssembly;
+    protected Assembly EntryAssembly { get; set; }
 
     protected EmbeddedResourcesH()
     {
@@ -28,25 +28,25 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     ///     public to use in assembly like SunamoNTextCat
     ///     A2 is name of project, therefore don't insert typeResourcesSunamo.Namespace
     /// </summary>
-    /// <param name="_entryAssembly"></param>
-    public EmbeddedResourcesH(Assembly _entryAssembly, string defaultNamespace)
+    /// <param name="entryAssembly"></param>
+    public EmbeddedResourcesH(Assembly entryAssembly, string defaultNamespace)
     {
-        this._entryAssembly = _entryAssembly;
-        _defaultNamespace = defaultNamespace;
+        this.EntryAssembly = entryAssembly;
+        DefaultNamespace = defaultNamespace;
     }
 
-    protected Assembly entryAssembly
+    protected Assembly CurrentEntryAssembly
     {
         get
         {
-            if (_entryAssembly == null) _entryAssembly = Assembly.GetEntryAssembly();
-            return _entryAssembly;
+            if (EntryAssembly == null) EntryAssembly = Assembly.GetEntryAssembly();
+            return EntryAssembly;
         }
     }
 
     public string GetResourceName(string name)
     {
-        name = string.Join(".", _defaultNamespace,
+        name = string.Join(".", DefaultNamespace,
             name.TrimStart('/').Replace("/", "."));
         return name;
     }
@@ -58,9 +58,9 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <param name="name"></param>
     public string GetString(string name)
     {
-        var text = GetStream(name);
+        var stream = GetStream(name);
 
-        return Encoding.UTF8.GetString(FS.StreamToArrayBytes(text));
+        return Encoding.UTF8.GetString(FS.StreamToArrayBytes(stream));
     }
 
     /// <summary>
@@ -69,8 +69,8 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <param name="name"></param>
     public Stream GetStream(string name)
     {
-        var text = GetResourceName(name);
-        var vr = entryAssembly.GetManifestResourceStream(text);
-        return vr;
+        var resourceName = GetResourceName(name);
+        var stream = CurrentEntryAssembly.GetManifestResourceStream(resourceName);
+        return stream;
     }
 }
