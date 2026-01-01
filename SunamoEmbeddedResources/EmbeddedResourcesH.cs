@@ -1,3 +1,5 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
 namespace SunamoEmbeddedResources;
 
 /// <summary>
@@ -14,12 +16,21 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <summary>
     ///     For entry assembly
     /// </summary>
-    public static EmbeddedResourcesH Instance = null;
+    public static EmbeddedResourcesH? Instance = null;
 
-    protected string DefaultNamespace { get; set; }
+    /// <summary>
+    ///     Default namespace for embedded resources
+    /// </summary>
+    protected string DefaultNamespace { get; set; } = string.Empty;
 
-    protected Assembly EntryAssembly { get; set; }
+    /// <summary>
+    ///     Entry assembly containing embedded resources
+    /// </summary>
+    protected Assembly? EntryAssembly { get; set; }
 
+    /// <summary>
+    ///     Protected constructor for derived classes
+    /// </summary>
     protected EmbeddedResourcesH()
     {
     }
@@ -28,27 +39,36 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     ///     public to use in assembly like SunamoNTextCat
     ///     A2 is name of project, therefore don't insert typeResourcesSunamo.Namespace
     /// </summary>
-    /// <param name="entryAssembly"></param>
+    /// <param name="entryAssembly">The assembly containing embedded resources</param>
+    /// <param name="defaultNamespace">Default namespace for embedded resources</param>
     public EmbeddedResourcesH(Assembly entryAssembly, string defaultNamespace)
     {
         this.EntryAssembly = entryAssembly;
         DefaultNamespace = defaultNamespace;
     }
 
+    /// <summary>
+    ///     Gets the current entry assembly, initializing it if necessary
+    /// </summary>
     protected Assembly CurrentEntryAssembly
     {
         get
         {
-            if (EntryAssembly == null) EntryAssembly = Assembly.GetEntryAssembly();
+            if (EntryAssembly == null) EntryAssembly = Assembly.GetEntryAssembly()!;
             return EntryAssembly;
         }
     }
 
+    /// <summary>
+    ///     Converts a file path to a resource name by combining with default namespace
+    /// </summary>
+    /// <param name="name">The resource path</param>
+    /// <returns>The full resource name</returns>
     public string GetResourceName(string name)
     {
-        name = string.Join(".", DefaultNamespace,
+        string resourceName = string.Join(".", DefaultNamespace,
             name.TrimStart('/').Replace("/", "."));
-        return name;
+        return resourceName;
     }
 
     /// <summary>
@@ -66,11 +86,12 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <summary>
     ///     Resources/tidy_config.txt (no assembly)
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The resource path</param>
+    /// <returns>The manifest resource stream</returns>
     public Stream GetStream(string name)
     {
         var resourceName = GetResourceName(name);
         var stream = CurrentEntryAssembly.GetManifestResourceStream(resourceName);
-        return stream;
+        return stream!;
     }
 }
