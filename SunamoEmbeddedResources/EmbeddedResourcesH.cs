@@ -1,3 +1,4 @@
+// variables names: ok
 // EN: Variable names have been checked and replaced with self-descriptive names
 // CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
 namespace SunamoEmbeddedResources;
@@ -62,12 +63,12 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <summary>
     ///     Converts a file path to a resource name by combining with default namespace
     /// </summary>
-    /// <param name="name">The resource path</param>
+    /// <param name="path">The resource path</param>
     /// <returns>The full resource name</returns>
-    public string GetResourceName(string name)
+    public string GetResourceName(string path)
     {
         string resourceName = string.Join(".", DefaultNamespace,
-            name.TrimStart('/').Replace("/", "."));
+            path.TrimStart('/').Replace("/", "."));
         return resourceName;
     }
 
@@ -75,10 +76,11 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     ///     If it's file, return its content
     ///     Its for getting string from file, never from resx or another in code variable
     /// </summary>
-    /// <param name="name"></param>
-    public string GetString(string name)
+    /// <param name="path">The resource path</param>
+    /// <returns>The resource content as string</returns>
+    public string GetString(string path)
     {
-        var stream = GetStream(name);
+        var stream = GetStream(path);
 
         return Encoding.UTF8.GetString(FS.StreamToArrayBytes(stream));
     }
@@ -86,11 +88,11 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <summary>
     ///     Resources/tidy_config.txt (no assembly)
     /// </summary>
-    /// <param name="name">The resource path</param>
+    /// <param name="path">The resource path</param>
     /// <returns>The manifest resource stream</returns>
-    public Stream GetStream(string name)
+    public Stream GetStream(string path)
     {
-        var resourceName = GetResourceName(name);
+        var resourceName = GetResourceName(path);
         var stream = CurrentEntryAssembly.GetManifestResourceStream(resourceName);
         return stream!;
     }
