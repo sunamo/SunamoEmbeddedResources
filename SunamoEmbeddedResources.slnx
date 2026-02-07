@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SunamoEmbeddedResources.Tests\\SunamoEmbeddedResources.Tests.csproj" />
+  <Project Path="RunnerEmbeddedResources\\RunnerEmbeddedResources.csproj" />
+  <Project Path="SunamoEmbeddedResources\SunamoEmbeddedResources.csproj" />
+</Solution>
