@@ -1,19 +1,7 @@
 namespace SunamoEmbeddedResources._sunamo;
 
-/// <summary>
-/// File system helper class for stream operations.
-/// EN: Provides utility methods for working with streams and converting them to byte arrays.
-/// CZ: Poskytuje pomocné metody pro práci se streamy a jejich konverzi na byte pole.
-/// </summary>
 internal class FS
 {
-    /// <summary>
-    /// Converts a stream to a byte array.
-    /// EN: Reads the entire stream content and returns it as a byte array, preserving the original stream position.
-    /// CZ: Přečte celý obsah streamu a vrátí ho jako byte pole, zachová původní pozici streamu.
-    /// </summary>
-    /// <param name="stream">The stream to convert to byte array</param>
-    /// <returns>The byte array containing all stream data</returns>
     internal static byte[] StreamToArrayBytes(System.IO.Stream stream)
     {
         if (stream == null)
