@@ -4,16 +4,15 @@ namespace SunamoEmbeddedResources;
 ///     Require assembly and default namespace.
 ///     Content is referred like with ResourcesH - with fs path
 /// </summary>
-public class EmbeddedResourcesH //: IResourceHelper
-{
-    /*usage:
+/*usage:
 uri = new Uri("Wpf.Tests.Resources.EmbeddedResource.txt", UriKind.Relative);
 GetString(uri.ToString()) - the same string as passed in ctor Uri
-     */
-
     /// <summary>
     ///     For entry assembly
     /// </summary>
+ */
+public class EmbeddedResourcesH //: IResourceHelper
+{
     public static EmbeddedResourcesH? Instance = null;
 
     /// <summary>
@@ -64,7 +63,7 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     /// <returns>The full resource name</returns>
     public string GetResourceName(string path)
     {
-        string resourceName = string.Join(".", DefaultNamespace,
+        var resourceName = string.Join(".", DefaultNamespace,
             path.TrimStart('/').Replace("/", "."));
         return resourceName;
     }
@@ -78,7 +77,6 @@ GetString(uri.ToString()) - the same string as passed in ctor Uri
     public string GetString(string path)
     {
         var stream = GetStream(path);
-
         return Encoding.UTF8.GetString(FS.StreamToArrayBytes(stream));
     }
 
