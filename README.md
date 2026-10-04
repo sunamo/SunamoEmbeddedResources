@@ -1,5 +1,10 @@
 # SunamoEmbeddedResources
 
+## Short description
+
+Práce se zdroji, které jsou do aplikace přidány jako vložené (Embedded).
+
+
 Working with resources that have been added to the application as "Embedded"
 
 ## Overview
