@@ -1,4 +1,3 @@
-// variables names: ok
 namespace RunnerEmbeddedResources;
 
 internal class Program
